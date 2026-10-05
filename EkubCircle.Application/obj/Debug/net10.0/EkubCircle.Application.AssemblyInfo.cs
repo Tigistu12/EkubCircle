@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("EkubCircle.Application")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0e6911039703da1ce25f4eb45c464235bfd60dfd")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6aba49bfdb5ec863ed5e4a76d0e9e77d68a6f057")]
 [assembly: System.Reflection.AssemblyProductAttribute("EkubCircle.Application")]
 [assembly: System.Reflection.AssemblyTitleAttribute("EkubCircle.Application")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
