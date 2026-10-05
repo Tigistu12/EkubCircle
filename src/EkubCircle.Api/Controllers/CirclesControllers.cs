@@ -14,7 +14,7 @@ public record CreateCircleRequest(
 
 [ApiController]
 [Route("api/v1/circles")]
-// [AllowAnonymous]
+[AllowAnonymous]
 public class CirclesController : ControllerBase
 {
     private readonly ISender _sender;
@@ -25,7 +25,6 @@ public class CirclesController : ControllerBase
     }
 
     [HttpPost]
-    [Authorize(Roles = "Organizer")]
     [ProducesResponseType(typeof(CreateCircleResponse), StatusCodes.Status201Created)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status401Unauthorized)]

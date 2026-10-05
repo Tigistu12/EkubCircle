@@ -9,7 +9,6 @@ namespace EkubCircle.Api.Controllers.V1;
 [ApiController]
 [Route("api/v1/auth")]
 [AllowAnonymous]
-// [Authorize]
 public class AuthController : ControllerBase
 {
     private readonly ISender _sender;

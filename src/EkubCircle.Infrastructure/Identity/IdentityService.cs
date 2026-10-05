@@ -55,4 +55,11 @@ public class IdentityService : IIdentityService
         var token = _jwtTokenGenerator.GenerateToken(user.Id, user.Email!, user.FullName);
         return (true, token, user.Id, user.FullName, user.Email!);
     }
+    public async Task<bool> IsInRoleAsync(string userId, string role)
+{
+    var user = await _userManager.FindByIdAsync(userId);
+    if (user == null) return false;
+
+    return await _userManager.IsInRoleAsync(user, role);
+}
 }
