@@ -1,7 +1,7 @@
 using FluentValidation;
 using EkubCircle.Application.Commands;
 
-namespace EkubCircle.Application.Circles.Validators;
+namespace EkubCircle.Application.Validators;
 
 public class AddMemberToCircleCommandValidator : AbstractValidator<AddMemberToCircleCommand>
 {

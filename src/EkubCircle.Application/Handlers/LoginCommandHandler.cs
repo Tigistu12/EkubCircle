@@ -2,7 +2,7 @@ using EkubCircle.Application.Interfaces;
 using EkubCircle.Application.Commands;
 using MediatR;
 
-namespace EkubCircle.Application.Auth.Commands.Login;
+namespace EkubCircle.Application.Handlers;
 
 public class LoginCommandHandler : IRequestHandler<LoginCommand, LoginResponse>
 {

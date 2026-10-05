@@ -1,6 +1,6 @@
 using FluentValidation;
 using EkubCircle.Application.Commands;
-namespace EkubCircle.Application.Commands;
+namespace EkubCircle.Application.Validators;
 
 public class LoginCommandValidator : AbstractValidator<LoginCommand>
 {

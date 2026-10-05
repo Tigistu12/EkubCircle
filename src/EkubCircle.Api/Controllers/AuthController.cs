@@ -1,4 +1,3 @@
-using EkubCircle.Application.Auth.Commands.Login;
 using EkubCircle.Application.Commands;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
