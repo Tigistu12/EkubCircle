@@ -1,3 +1,4 @@
+// Domain/Entities/Contribution.cs
 using EkubCircle.Domain.Enums;
 
 namespace EkubCircle.Domain.Entities;
@@ -12,7 +13,6 @@ public class Contribution
     public DateTime? PaidAt { get; set; }
     public bool IsDeleted { get; set; }
 
-    // Navigation Properties
     public Round? Round { get; set; }
     public Member? Member { get; set; }
 }

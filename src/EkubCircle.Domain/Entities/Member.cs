@@ -1,3 +1,4 @@
+// Domain/Entities/Member.cs
 namespace EkubCircle.Domain.Entities;
 
 public class Member
@@ -7,10 +8,9 @@ public class Member
     public required int EkubId { get; set; }
     public required string FullName { get; set; }
     public int PayoutOrder { get; set; }
-    public bool HasWon { get; set; }
+    public bool HasReceivedPot { get; set; }
     public bool IsDeleted { get; set; }
 
-    // Navigation Properties
     public Ekub? Ekub { get; set; }
     public ICollection<Contribution> Contributions { get; set; } = new List<Contribution>();
 }

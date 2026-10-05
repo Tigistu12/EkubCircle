@@ -2,17 +2,15 @@ namespace EkubCircle.Domain.Enums;
 
 public enum EkubStatus
 {
-    Pending = 0,
+    Forming = 0,
     Active = 1,
-    Completed = 2,
-    Cancelled = 3
+    Completed = 2
 }
 
 public enum RoundStatus
 {
-    Pending = 0,
-    Active = 1,
-    Completed = 2
+    Open = 0,
+    PaidOut = 1
 }
 
 public enum ContributionStatus
@@ -21,4 +19,3 @@ public enum ContributionStatus
     Paid = 1,
     Late = 2
 }
-
