@@ -21,3 +21,4 @@ public enum ContributionStatus
     Paid = 1,
     Late = 2
 }
+
