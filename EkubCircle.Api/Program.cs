@@ -1,15 +1,14 @@
 using System.Text;
+using EkubCircle.Domain.Entities;
 using EkubCircle.Infrastructure;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using Scalar.AspNetCore;
-using Microsoft.AspNetCore.Identity;
-using EkubCircle.Domain.Entities;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
-
-builder.Services.AddOpenApi();
 
 builder.Services.AddInfrastructureServices(
     builder.Configuration);
@@ -62,6 +61,8 @@ builder.Services
 
 builder.Services.AddAuthorization();
 
+builder.Services.AddOpenApi();
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -76,6 +77,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
 using (var scope = app.Services.CreateScope())
 {
     var roleManager =
