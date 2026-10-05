@@ -1,0 +1,8 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/EkubCircle.Api/EkubCircle.Api.csproj" />
+    <Project Path="src/EkubCircle.Application/EkubCircle.Application.csproj" />
+    <Project Path="src/EkubCircle.Domain/EkubCircle.Domain.csproj" />
+    <Project Path="src/EkubCircle.Infrastructure/EkubCircle.Infrastructure.csproj" />
+  </Folder>
+</Solution>
