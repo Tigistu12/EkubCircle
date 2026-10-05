@@ -4,11 +4,16 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace EkubCircle.Infrastructure.Persistence.Configurations;
 
-public class PaymentConfiguration : IEntityTypeConfiguration<Payment>
+public class PaymentConfiguration
+    : IEntityTypeConfiguration<Payment>
 {
-    public void Configure(EntityTypeBuilder<Payment> builder)
+    public void Configure(
+        EntityTypeBuilder<Payment> builder)
     {
         builder.HasKey(p => p.Id);
+
+        builder.Property(p => p.MemberId)
+            .IsRequired();
 
         builder.Property(p => p.Amount)
             .HasPrecision(18, 2)
@@ -20,18 +25,18 @@ public class PaymentConfiguration : IEntityTypeConfiguration<Payment>
         builder.HasIndex(p => new
         {
             p.RoundId,
-            p.CircleMemberId
+            p.MemberId
         })
         .IsUnique();
 
         builder.HasOne(p => p.Round)
             .WithMany(r => r.Payments)
             .HasForeignKey(p => p.RoundId)
-            .OnDelete(DeleteBehavior.Restrict);
+            .OnDelete(DeleteBehavior.Cascade);
 
-        builder.HasOne(p => p.CircleMember)
-            .WithMany(m => m.Payments)
-            .HasForeignKey(p => p.CircleMemberId)
+        builder.HasOne(p => p.Member)
+            .WithMany()
+            .HasForeignKey(p => p.MemberId)
             .OnDelete(DeleteBehavior.Restrict);
     }
 }

@@ -1,4 +1,6 @@
-using EkubCircle.Infrastructure.Identity;
+using EkubCircle.Application.Interfaces;
+using EkubCircle.Application.Services;
+using EkubCircle.Domain.Entities;
 using EkubCircle.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -9,30 +11,47 @@ namespace EkubCircle.Infrastructure;
 
 public static class DependencyInjection
 {
-    public static IServiceCollection AddInfrastructure(
+    public static IServiceCollection AddInfrastructureServices(
         this IServiceCollection services,
         IConfiguration configuration)
     {
         var connectionString =
-            configuration.GetConnectionString("DefaultConnection")
-            ?? throw new InvalidOperationException(
-                "Connection string 'DefaultConnection' was not found.");
+            configuration.GetConnectionString("DefaultConnection");
+
+        if (string.IsNullOrWhiteSpace(connectionString))
+        {
+            throw new InvalidOperationException(
+                "DefaultConnection is missing.");
+        }
 
         services.AddDbContext<EkubDbContext>(options =>
-            options.UseNpgsql(connectionString));
+            options.UseNpgsql(
+                connectionString,
+                npgsql =>
+                    npgsql.MigrationsAssembly(
+                        typeof(EkubDbContext).Assembly.FullName)));
 
-        services.AddIdentityCore<ApplicationUser>(options =>
-        {
-            options.Password.RequiredLength = 8;
-            options.Password.RequireDigit = true;
-            options.Password.RequireUppercase = true;
-            options.Password.RequireLowercase = true;
-            options.Password.RequireNonAlphanumeric = true;
+        services.AddScoped<IEkubDbContext>(sp =>
+            sp.GetRequiredService<EkubDbContext>());
 
-            options.User.RequireUniqueEmail = false;
-        })
-        .AddRoles<IdentityRole>()
-        .AddEntityFrameworkStores<EkubDbContext>();
+        services
+            .AddIdentity<ApplicationUser, IdentityRole>(options =>
+            {
+                options.Password.RequireDigit = true;
+                options.Password.RequiredLength = 6;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequireLowercase = false;
+
+                options.User.RequireUniqueEmail = true;
+            })
+            .AddEntityFrameworkStores<EkubDbContext>()
+            .AddDefaultTokenProviders();
+
+        services.AddScoped<IAuthService, AuthService>();
+        services.AddScoped<ICircleService, CircleService>();
+        services.AddScoped<ILotteryService, LotteryService>();
+        services.AddScoped<IPaymentService, PaymentService>();
 
         return services;
     }

@@ -14,18 +14,27 @@ public class CircleConfiguration : IEntityTypeConfiguration<Circle>
             .IsRequired()
             .HasMaxLength(200);
 
-        builder.Property(c => c.Contribution)
+        builder.Property(c => c.ContributionAmount)
             .HasPrecision(18, 2)
+            .IsRequired();
+
+        builder.Property(c => c.MemberCount)
             .IsRequired();
 
         builder.Property(c => c.MeetingLabel)
             .IsRequired()
-            .HasMaxLength(100);
+            .HasMaxLength(200);
+
+        builder.Property(c => c.OrganizerId)
+            .IsRequired();
 
         builder.Property(c => c.Status)
             .IsRequired();
 
-        builder.Property(c => c.OrganizerId)
+        builder.Property(c => c.CurrentRoundNumber)
+            .IsRequired();
+
+        builder.Property(c => c.CurrentReceiverPosition)
             .IsRequired();
 
         builder.Property(c => c.CreatedAt)
@@ -36,11 +45,16 @@ public class CircleConfiguration : IEntityTypeConfiguration<Circle>
         builder.HasMany(c => c.Members)
             .WithOne(m => m.Circle)
             .HasForeignKey(m => m.CircleId)
-            .OnDelete(DeleteBehavior.Restrict);
+            .OnDelete(DeleteBehavior.Cascade);
 
         builder.HasMany(c => c.Rounds)
             .WithOne(r => r.Circle)
             .HasForeignKey(r => r.CircleId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        builder.HasOne(c => c.Organizer)
+            .WithMany()
+            .HasForeignKey(c => c.OrganizerId)
             .OnDelete(DeleteBehavior.Restrict);
     }
 }

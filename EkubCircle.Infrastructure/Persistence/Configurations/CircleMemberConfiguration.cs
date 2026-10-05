@@ -4,16 +4,18 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace EkubCircle.Infrastructure.Persistence.Configurations;
 
-public class CircleMemberConfiguration : IEntityTypeConfiguration<CircleMember>
+public class CircleMemberConfiguration
+    : IEntityTypeConfiguration<CircleMember>
 {
-    public void Configure(EntityTypeBuilder<CircleMember> builder)
+    public void Configure(
+        EntityTypeBuilder<CircleMember> builder)
     {
         builder.HasKey(m => m.Id);
 
         builder.Property(m => m.UserId)
             .IsRequired();
 
-        builder.Property(m => m.OrderNumber)
+        builder.Property(m => m.Position)
             .IsRequired();
 
         builder.Property(m => m.HasReceived)
@@ -31,18 +33,18 @@ public class CircleMemberConfiguration : IEntityTypeConfiguration<CircleMember>
         builder.HasIndex(m => new
         {
             m.CircleId,
-            m.OrderNumber
+            m.Position
         })
         .IsUnique();
 
-        builder.HasMany(m => m.Payments)
-            .WithOne(p => p.CircleMember)
-            .HasForeignKey(p => p.CircleMemberId)
-            .OnDelete(DeleteBehavior.Restrict);
+        builder.HasOne(m => m.Circle)
+            .WithMany(c => c.Members)
+            .HasForeignKey(m => m.CircleId)
+            .OnDelete(DeleteBehavior.Cascade);
 
-        builder.HasMany(m => m.ReceivingRounds)
-            .WithOne(r => r.ReceiverMember)
-            .HasForeignKey(r => r.ReceiverMemberId)
+        builder.HasOne(m => m.User)
+            .WithMany()
+            .HasForeignKey(m => m.UserId)
             .OnDelete(DeleteBehavior.Restrict);
     }
 }

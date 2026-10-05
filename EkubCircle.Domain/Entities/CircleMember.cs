@@ -8,13 +8,11 @@ public class CircleMember
 
     public string UserId { get; set; } = string.Empty;
 
-    public int OrderNumber { get; set; }
+    public int Position { get; set; }
 
     public bool HasReceived { get; set; }
 
-    public Circle Circle { get; set; } = null!;
+    public Circle? Circle { get; set; }
 
-    public ICollection<Payment> Payments { get; set; } = new List<Payment>();
-
-    public ICollection<Round> ReceivingRounds { get; set; } = new List<Round>();
+    public ApplicationUser? User { get; set; }
 }

@@ -10,17 +10,19 @@ public class Round
 
     public int RoundNumber { get; set; }
 
-    public Guid ReceiverMemberId { get; set; }
+    public string ReceiverId { get; set; } = string.Empty;
+
+    public decimal ContributionAmount { get; set; }
+
+    public decimal PotAmount { get; set; }
 
     public RoundStatus Status { get; set; } = RoundStatus.Open;
 
-    public decimal? PaidOutAmount { get; set; }
-
     public DateTime? PaidOutAt { get; set; }
 
-    public Circle Circle { get; set; } = null!;
+    public Circle? Circle { get; set; }
 
-    public CircleMember ReceiverMember { get; set; } = null!;
+    public ApplicationUser? Receiver { get; set; }
 
     public ICollection<Payment> Payments { get; set; } = new List<Payment>();
 }

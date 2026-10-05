@@ -6,13 +6,13 @@ public class Payment
 
     public Guid RoundId { get; set; }
 
-    public Guid CircleMemberId { get; set; }
+    public string MemberId { get; set; } = string.Empty;
 
     public decimal Amount { get; set; }
 
-    public DateTime PaidAt { get; set; }
+    public DateTime PaidAt { get; set; } = DateTime.UtcNow;
 
-    public Round Round { get; set; } = null!;
+    public Round? Round { get; set; }
 
-    public CircleMember CircleMember { get; set; } = null!;
+    public ApplicationUser? Member { get; set; }
 }
