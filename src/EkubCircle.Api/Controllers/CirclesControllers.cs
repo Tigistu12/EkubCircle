@@ -66,5 +66,4 @@ public class CirclesController : ControllerBase
 
         return Ok(response);
     }
-    
 }

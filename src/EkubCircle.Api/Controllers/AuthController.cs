@@ -4,7 +4,7 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace EkubCircle.Api.Controllers.V1;
+namespace EkubCircle.Api.Controllers;
 
 [ApiController]
 [Route("api/v1/auth")]
