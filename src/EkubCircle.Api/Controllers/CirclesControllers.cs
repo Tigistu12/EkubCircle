@@ -50,4 +50,20 @@ public class CirclesController : ControllerBase
     {
         return Ok();
     }
+
+    [HttpPost("{circleId:int}/start")]
+    [ProducesResponseType(typeof(StartCircleResponse), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> StartCircle(int circleId, CancellationToken cancellationToken)
+    {
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier)
+            ?? throw new UnauthorizedAccessException("User identification token is invalid or missing.");
+
+        var command = new StartCircleCommand(circleId, userId);
+        var response = await _sender.Send(command, cancellationToken);
+
+        return Ok(response);
+    }
 }
